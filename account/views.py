@@ -12,6 +12,10 @@ from .serializers import RegisterSerializer, UserSerializer
 
 from .permissions import IsAdminOnly
 
+# ===================================
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.views import APIView
+# ===================================
 
 class Register(CreateAPIView):
     queryset = User.objects.all()
@@ -41,6 +45,17 @@ class Users(ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated, IsAdminOnly]
+
+
+
+
+# =========================
+class Logout(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        return Response({"message": "Successfully logged out."}, status=status.HTTP_205_RESET_CONTENT)
+
 
 
     
