@@ -21,6 +21,11 @@ class BlogSerializer(serializers.ModelSerializer):
     def get_username(self, obj):
         return obj.user.username
 
+    # show the comments count for each post
+    comments_count = serializers.SerializerMethodField()
+    def get_comments_count(self, obj):
+        return Comment.objects.filter(blog=obj).count()
+
    
 
 class CommentSerializer(serializers.ModelSerializer):
