@@ -16,6 +16,11 @@ class BlogSerializer(serializers.ModelSerializer):
     def get_category_name(self, obj):
         return obj.category.name
 
+    # show the user name in post
+    username = serializers.SerializerMethodField()
+    def get_username(self, obj):
+        return obj.user.username
+
    
 
 class CommentSerializer(serializers.ModelSerializer):
