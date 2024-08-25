@@ -39,7 +39,7 @@ class Comment(models.Model):
 
 class Likes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, related_name='likes', on_delete=models.CASCADE)
     likes = models.BooleanField(default=False)
 
     def __str__(self):

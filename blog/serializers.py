@@ -35,6 +35,11 @@ class BlogSerializer(serializers.ModelSerializer):
     def get_comments_count(self, obj):
         return obj.comments.count()
 
+    # show the count of likes for each post
+    likes_count = serializers.SerializerMethodField()
+    def get_likes_count(self, obj):
+        return obj.likes.count()
+
 
 
 class LikesSerializer(serializers.ModelSerializer):
