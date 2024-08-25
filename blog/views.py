@@ -11,13 +11,14 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 
 
-from .permissions import IsStaffOrReadOnly
+from .permissions import IsStaffOrReadOnly , IsOwnerOrStaff
 
 # Create your views here.
 
 class BlogViewSet(ModelViewSet):
     queryset = Blog.objects.all().order_by('-publish_date')
     serializer_class = BlogSerializer
+    permission_classes = [IsOwnerOrStaff]
 
 # ============== send created msg ==============
     def create(self, request, *args, **kwargs):
