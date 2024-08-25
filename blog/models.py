@@ -49,7 +49,7 @@ class Likes(models.Model):
 class PostViews(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post_views = models.PositiveIntegerField(default=0)
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, related_name='blogView', on_delete=models.CASCADE)
     time_stamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

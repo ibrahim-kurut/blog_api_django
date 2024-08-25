@@ -41,6 +41,12 @@ class BlogSerializer(serializers.ModelSerializer):
         return obj.likes.count()
 
 
+    # show the count of likes for each post
+    blogView = serializers.SerializerMethodField()
+    def get_blogView(self, obj):
+        return obj.blogView.count()
+
+
 
 class LikesSerializer(serializers.ModelSerializer):
     class Meta:
