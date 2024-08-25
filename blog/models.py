@@ -31,7 +31,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     time_stamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, related_name='comments', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.user.username} - {self.blog.title}'

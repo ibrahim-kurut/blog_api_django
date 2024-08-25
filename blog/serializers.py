@@ -4,6 +4,11 @@ from rest_framework import serializers
 from .models import Blog, Comment, Likes, PostViews, Category
 
 
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
 
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,17 +26,16 @@ class BlogSerializer(serializers.ModelSerializer):
     def get_username(self, obj):
         return obj.user.username
 
-    # show the comments count for each post
+    # count comments for each post
     comments_count = serializers.SerializerMethodField()
+    # View all comments related to post
+    comments = CommentSerializer(many=True, read_only=True)
+
+    # Calculate the count of comments for each post
     def get_comments_count(self, obj):
-        return Comment.objects.filter(blog=obj).count()
+        return obj.comments.count()
 
-   
 
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = '__all__'
 
 class LikesSerializer(serializers.ModelSerializer):
     class Meta:
