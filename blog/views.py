@@ -10,6 +10,9 @@ from rest_framework import viewsets, status
 
 from rest_framework.response import Response
 
+
+from .permissions import IsStaffOrReadOnly
+
 # Create your views here.
 
 class BlogViewSet(ModelViewSet):
@@ -106,6 +109,7 @@ class CommentViewSet(ModelViewSet):
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [IsStaffOrReadOnly]
 
 
 
