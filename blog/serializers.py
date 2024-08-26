@@ -16,6 +16,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class BlogSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
     class Meta:
         model = Blog
         fields = '__all__'
@@ -26,10 +27,10 @@ class BlogSerializer(serializers.ModelSerializer):
     def get_category_name(self, obj):
         return obj.category.name
 
-    # show the user name in post
-    username = serializers.SerializerMethodField()
-    def get_username(self, obj):
-        return obj.user.username
+    # # show the user name in post
+    # username = serializers.SerializerMethodField()
+    # def get_username(self, obj):
+    #     return obj.user.username
 
     # count comments for each post
     comments_count = serializers.SerializerMethodField()

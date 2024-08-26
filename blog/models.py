@@ -21,7 +21,7 @@ class Blog(models.Model):
     image = models.ImageField(upload_to='images/')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     publish_date = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
 
     def __str__(self):
