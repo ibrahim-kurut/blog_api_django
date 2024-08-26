@@ -20,6 +20,14 @@ class BlogViewSet(ModelViewSet):
     serializer_class = BlogSerializer
     permission_classes = [IsOwnerOrStaff]
 
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        # PostView oluşturuluyor
+        PostViews.objects.create(blog=instance, user=request.user if request.user.is_authenticated else None)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
 # ============== send created msg ==============
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
