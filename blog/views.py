@@ -13,12 +13,17 @@ from rest_framework.response import Response
 
 from .permissions import IsStaffOrReadOnly , IsOwnerOrStaff, IsOwnerOrReadOnly
 
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 class BlogViewSet(ModelViewSet):
     queryset = Blog.objects.all().order_by('-publish_date')
     serializer_class = BlogSerializer
-    permission_classes = [IsOwnerOrStaff]
+    permission_classes = [IsOwnerOrStaff, IsAuthenticated]
+
+    def perform_create(self, serializer):
+    # Automatically assign the owner who created the post.
+        serializer.save(user=self.request.user)
 
 
     def retrieve(self, request, *args, **kwargs):
