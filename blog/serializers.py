@@ -8,6 +8,11 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
+        
+    # show the user name in Comment
+    username = serializers.SerializerMethodField()
+    def get_username(self, obj):
+        return obj.user.username
 
 
 class BlogSerializer(serializers.ModelSerializer):

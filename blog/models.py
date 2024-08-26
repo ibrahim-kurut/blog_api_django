@@ -28,7 +28,7 @@ class Blog(models.Model):
         return self.title
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
     time_stamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
     blog = models.ForeignKey(Blog, related_name='comments', on_delete=models.CASCADE)

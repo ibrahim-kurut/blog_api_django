@@ -11,7 +11,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 
 
-from .permissions import IsStaffOrReadOnly , IsOwnerOrStaff
+from .permissions import IsStaffOrReadOnly , IsOwnerOrStaff, IsOwnerOrReadOnly
 
 # Create your views here.
 
@@ -73,6 +73,7 @@ class BlogViewSet(ModelViewSet):
 class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
 
     # ============== send created msg ==============
