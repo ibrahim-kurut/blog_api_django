@@ -19,7 +19,7 @@ from rest_framework.permissions import IsAuthenticated
 class BlogViewSet(ModelViewSet):
     queryset = Blog.objects.all().order_by('-publish_date')
     serializer_class = BlogSerializer
-    permission_classes = [IsOwnerOrStaff, IsAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
     # Automatically assign the owner who created the post.
